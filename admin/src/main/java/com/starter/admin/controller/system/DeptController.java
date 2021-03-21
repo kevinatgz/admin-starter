@@ -18,7 +18,9 @@ package com.starter.admin.controller.system;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.starter.admin.entity.SysDeptEntity;
-import com.starter.admin.service.SysDeptService;
+import com.starter.admin.service.DeptService;
+//import com.starter.admin.service.SysDeptService;
+import com.starter.admin.service.impl.DeptServiceImpl;
 import com.starter.admin.service.system.dto.DeptDto;
 import com.starter.common.utils.PageUtil;
 import io.swagger.annotations.Api;
@@ -52,8 +54,8 @@ import java.util.*;
 @RequestMapping("/api/dept")
 public class DeptController {
 
-//    @Autowired
-    private final SysDeptService deptService;
+    @Autowired
+    private final DeptService deptService;
     private static final String ENTITY_NAME = "dept";
 
 //    @ApiOperation("导出部门数据")
