@@ -13,41 +13,30 @@
 // *  See the License for the specific language governing permissions and
 // *  limitations under the License.
 // */
-//package com.starter.admin.controller.system;
-//
-//import cn.hutool.core.collection.CollectionUtil;
-//import io.swagger.annotations.Api;
-//import io.swagger.annotations.ApiOperation;
-//import lombok.RequiredArgsConstructor;
-//import me.zhengjie.annotation.Log;
-//import me.zhengjie.exception.BadRequestException;
-//import me.zhengjie.modules.system.domain.Menu;
-//import me.zhengjie.modules.system.service.MenuService;
-//import me.zhengjie.modules.system.service.dto.MenuDto;
-//import me.zhengjie.modules.system.service.dto.MenuQueryCriteria;
-//import me.zhengjie.modules.system.service.mapstruct.MenuMapper;
-//import me.zhengjie.utils.PageUtil;
-//import me.zhengjie.utils.SecurityUtils;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
-//import org.springframework.validation.annotation.Validated;
-//import org.springframework.web.bind.annotation.*;
-//
-//import javax.servlet.http.HttpServletResponse;
-//import java.util.*;
-//import java.util.stream.Collectors;
-//
+package com.starter.admin.controller.system;
+
+import com.starter.common.annotation.rest.AnonymousGetMapping;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 ///**
 // * @author Zheng Jie
 // * @date 2018-12-03
 // */
 //
-//@RestController
-//@RequiredArgsConstructor
-//@Api(tags = "系统：菜单管理")
-//@RequestMapping("/api/menus")
-//public class MenuController {
+@RestController
+@RequiredArgsConstructor
+@Api(tags = "系统：菜单管理")
+@RequestMapping("/api/menus")
+public class MenuController {
 //
 //    private final MenuService menuService;
 //    private final MenuMapper menuMapper;
@@ -68,12 +57,13 @@
 //        return new ResponseEntity<>(menuService.buildMenus(menuDtos),HttpStatus.OK);
 //    }
 //
-//    @ApiOperation("返回全部的菜单")
-//    @GetMapping(value = "/lazy")
+    @ApiOperation("返回全部的菜单")
+    @AnonymousGetMapping(value = "/lazy")
 //    @PreAuthorize("@el.check('menu:list','roles:list')")
-//    public ResponseEntity<Object> query(@RequestParam Long pid){
-//        return new ResponseEntity<>(menuService.getMenus(pid),HttpStatus.OK);
-//    }
+    public ResponseEntity<Object> query(@RequestParam Long pid){
+        return new ResponseEntity<>(new Object(), HttpStatus.OK);
+//        return new ResponseEntity<>(menuService.getMenus(pid), HttpStatus.OK);
+    }
 //
 //    @ApiOperation("根据菜单ID返回所有子节点ID，包含自身ID")
 //    @GetMapping(value = "/child")
@@ -145,4 +135,4 @@
 //        menuService.delete(menuSet);
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
-//}
+}

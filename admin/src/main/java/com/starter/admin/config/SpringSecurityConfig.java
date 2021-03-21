@@ -31,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 //import me.zhengjie.modules.security.service.OnlineUserService;
 //import me.zhengjie.modules.security.service.UserCacheClean;
 //import me.zhengjie.utils.enums.RequestMethodEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,6 +60,7 @@ import java.util.*;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@Slf4j
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final TokenProvider tokenProvider;
@@ -89,6 +91,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         Map<RequestMappingInfo, HandlerMethod> handlerMethodMap = requestMappingHandlerMapping.getHandlerMethods();
         // 获取匿名标记
         Map<String, Set<String>> anonymousUrls = getAnonymousUrl(handlerMethodMap);
+        log.info("anonymousUrls==="+anonymousUrls);
         httpSecurity
                 // 禁用 CSRF
                 .csrf().disable()
@@ -167,6 +170,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 RequestMethodEnum request = RequestMethodEnum.find(requestMethods.size() == 0 ? RequestMethodEnum.ALL.getType() : requestMethods.get(0).name());
                 switch (Objects.requireNonNull(request)) {
                     case GET:
+                        log.info("getURL==="+infoEntry.getKey().getPatternsCondition().getPatterns());
                         get.addAll(infoEntry.getKey().getPatternsCondition().getPatterns());
                         break;
                     case POST:
