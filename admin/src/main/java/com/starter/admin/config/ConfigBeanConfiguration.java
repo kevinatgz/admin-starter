@@ -41,11 +41,11 @@ public class ConfigBeanConfiguration {
         return new LoginProperties();
     }
 
-    @Bean
-    @ConfigurationProperties(prefix = "rsa")
-    public RsaProperties rsaProperties() {
-        return new RsaProperties();
-    }
+//    @Bean
+//    @ConfigurationProperties(prefix = "rsa")
+//    public RsaProperties rsaProperties() {
+//        return new RsaProperties();
+//    }
 
 
     @Bean
@@ -54,11 +54,11 @@ public class ConfigBeanConfiguration {
         return new SecurityProperties();
     }
 
-    @Bean
-    public RedisUtils redisUtils(){
-        return  new RedisUtils(redisTemplate);
-    }
+//    @Bean
+//    public RedisUtils redisUtils(){
+//        return  new RedisUtils(redisTemplate);
+//    }
 
-    @Autowired
-    private RedisTemplate<Object, Object> redisTemplate;
+//    @Autowired
+//    private RedisTemplate<Object, Object> redisTemplate;
 }
