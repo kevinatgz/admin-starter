@@ -19,7 +19,10 @@ package com.starter.admin.service;
 //import me.zhengjie.modules.system.service.dto.MenuDto;
 //import me.zhengjie.modules.system.service.dto.MenuQueryCriteria;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.starter.admin.entity.Menu;
+import com.starter.admin.entity.SysDeptEntity;
+import com.starter.admin.entity.SysMenuEntity;
 import com.starter.admin.service.system.dto.MenuDto;
 
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +34,7 @@ import java.util.Set;
  * @author Zheng Jie
  * @date 2018-12-17
  */
-public interface MenuService {
+public interface MenuService  extends IService<SysMenuEntity> {
 
     /**
      * 查询全部数据

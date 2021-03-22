@@ -54,11 +54,5 @@ public class ConfigBeanConfiguration {
         return new SecurityProperties();
     }
 
-//    @Bean
-//    public RedisUtils redisUtils(){
-//        return  new RedisUtils(redisTemplate);
-//    }
 
-//    @Autowired
-//    private RedisTemplate<Object, Object> redisTemplate;
 }
