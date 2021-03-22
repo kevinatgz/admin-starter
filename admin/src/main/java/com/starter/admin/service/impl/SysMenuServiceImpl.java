@@ -19,14 +19,14 @@ import com.starter.admin.service.SysMenuService;
 @Service("sysMenuService")
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> implements SysMenuService {
 
-//    @Override
-//    public PageUtils queryPage(Map<String, Object> params) {
-//        IPage<SysMenuEntity> page = this.page(
-//                new Query(params).getPage(),
-//                new QueryWrapper<SysMenuEntity>()
-//        );
-//
-//        return new PageUtils(page);
-//    }
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        IPage<SysMenuEntity> page = this.page(
+                new Query<SysMenuEntity>().getPage(params),
+                new QueryWrapper<SysMenuEntity>()
+        );
+
+        return new PageUtils(page);
+    }
 
 }

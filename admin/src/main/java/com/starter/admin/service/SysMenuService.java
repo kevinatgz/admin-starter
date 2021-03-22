@@ -2,6 +2,7 @@ package com.starter.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.starter.admin.entity.SysMenuEntity;
+import com.starter.common.utils.PageUtils;
 //import com.starter.common.utils.PageUtils;
 //import com.starter.admin.entity.SysMenuEntity;
 
@@ -16,6 +17,6 @@ import java.util.Map;
  */
 public interface SysMenuService extends IService<SysMenuEntity> {
 
-//    PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPage(Map<String, Object> params);
 }
 

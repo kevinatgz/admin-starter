@@ -15,6 +15,6 @@ import java.util.Map;
  */
 public interface SysRolesMenusService extends IService<SysRolesMenusEntity> {
 
-//    PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPage(Map<String, Object> params);
 }
 

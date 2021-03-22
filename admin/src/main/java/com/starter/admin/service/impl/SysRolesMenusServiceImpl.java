@@ -16,14 +16,14 @@ import com.starter.admin.service.SysRolesMenusService;
 @Service("sysRolesMenusService")
 public class SysRolesMenusServiceImpl extends ServiceImpl<SysRolesMenusDao, SysRolesMenusEntity> implements SysRolesMenusService {
 
-//    @Override
-//    public PageUtils queryPage(Map<String, Object> params) {
-//        IPage<SysRolesMenusEntity> page = this.page(
-//                new Query<SysRolesMenusEntity>().getPage(params),
-//                new QueryWrapper<SysRolesMenusEntity>()
-//        );
-//
-//        return new PageUtils(page);
-//    }
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        IPage<SysRolesMenusEntity> page = this.page(
+                new Query<SysRolesMenusEntity>().getPage(params),
+                new QueryWrapper<SysRolesMenusEntity>()
+        );
+
+        return new PageUtils(page);
+    }
 
 }

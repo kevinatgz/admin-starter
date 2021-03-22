@@ -161,11 +161,6 @@ public class OnlineUserService {
      * @param key /
      * @return /
      */
-//    public OnlineUserDto getOne(String key) {
-//        JSONObject user = (JSONObject)redisUtils.get(key);
-//        log.info("OnlineUserDto=="+user);
-//        return user.toJavaObject(OnlineUserDto.class);
-//    }
     public OnlineUserDto getOne(String key) {
         return (OnlineUserDto)redisUtils.get(key);
     }
