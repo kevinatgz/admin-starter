@@ -13,7 +13,20 @@
 // *  See the License for the specific language governing permissions and
 // *  limitations under the License.
 // */
-//package com.starter.admin.controller.system;
+package com.starter.admin.controller.system;
+
+import com.starter.admin.service.RoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 //
 //import cn.hutool.core.lang.Dict;
 //import io.swagger.annotations.Api;
@@ -45,22 +58,22 @@
 // * @author Zheng Jie
 // * @date 2018-12-03
 // */
-//@RestController
-//@RequiredArgsConstructor
-//@Api(tags = "系统：角色管理")
-//@RequestMapping("/api/roles")
-//public class RoleController {
+@RestController
+@RequiredArgsConstructor
+@Api(tags = "系统：角色管理")
+@RequestMapping("/api/roles")
+public class RoleController {
 //
-//    private final RoleService roleService;
+    private final RoleService roleService;
 //
-//    private static final String ENTITY_NAME = "role";
+    private static final String ENTITY_NAME = "role";
 //
-//    @ApiOperation("获取单个role")
-//    @GetMapping(value = "/{id}")
-//    @PreAuthorize("@el.check('roles:list')")
-//    public ResponseEntity<Object> query(@PathVariable Long id){
-//        return new ResponseEntity<>(roleService.findById(id), HttpStatus.OK);
-//    }
+    @ApiOperation("获取单个role")
+    @GetMapping(value = "/{id}")
+    @PreAuthorize("@el.check('roles:list')")
+    public ResponseEntity<Object> query(@PathVariable Long id){
+        return new ResponseEntity<>(roleService.findById(id), HttpStatus.OK);
+    }
 //
 //    @ApiOperation("导出角色数据")
 //    @GetMapping(value = "/download")
@@ -152,4 +165,4 @@
 //        }
 //        return min;
 //    }
-//}
+}

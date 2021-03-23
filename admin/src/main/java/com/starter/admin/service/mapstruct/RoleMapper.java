@@ -15,9 +15,7 @@
  */
 package com.starter.admin.service.mapstruct;
 
-//import me.zhengjie.base.BaseMapper;
-//import me.zhengjie.modules.system.domain.Role;
-//import me.zhengjie.modules.system.service.dto.RoleDto;
+
 import com.starter.admin.entity.Role;
 import com.starter.admin.service.system.dto.RoleDto;
 import com.starter.common.base.BaseMapper;
