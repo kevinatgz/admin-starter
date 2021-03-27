@@ -22,6 +22,7 @@ package com.starter.admin.service;
 //import me.zhengjie.modules.system.service.dto.UserDto;
 import com.starter.admin.entity.Role;
 import com.starter.admin.service.system.dto.RoleDto;
+import com.starter.admin.service.system.dto.RoleQueryCriteria;
 import com.starter.admin.service.system.dto.RoleSmallDto;
 import com.starter.admin.service.system.dto.UserDto;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +44,15 @@ public interface RoleService {
      * @return /
      */
     List<RoleDto> queryAll();
+
+    /**
+     * 待条件分页查询
+     * @param criteria 条件
+     * @param pageable 分页参数
+     * @return /
+     */
+    Object queryAll(RoleQueryCriteria criteria, Pageable pageable);
+
 
     /**
      * 根据ID查询

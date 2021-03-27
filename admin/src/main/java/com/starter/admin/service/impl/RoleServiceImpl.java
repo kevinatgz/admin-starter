@@ -1,18 +1,27 @@
 package com.starter.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.starter.admin.dao.RoleRepository;
 import com.starter.admin.dao.SysUserDao;
 import com.starter.admin.dao.SysUsersRolesDao;
 import com.starter.admin.entity.Menu;
 import com.starter.admin.entity.Role;
 import com.starter.admin.entity.SysUserEntity;
 import com.starter.admin.service.RoleService;
+import com.starter.admin.service.mapstruct.RoleMapper;
 import com.starter.admin.service.system.dto.RoleDto;
+import com.starter.admin.service.system.dto.RoleQueryCriteria;
 import com.starter.admin.service.system.dto.RoleSmallDto;
 import com.starter.admin.service.system.dto.UserDto;
+import com.starter.common.utils.PageUtil;
+import com.starter.common.utils.QueryHelp;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -24,13 +33,25 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
+@CacheConfig(cacheNames = "role")
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private SysUsersRolesDao sysUserRolesDao;
 
+    private final RoleRepository roleRepository;
+    private final RoleMapper roleMapper;
+
+
     @Override
     public List<RoleDto> queryAll() {
         return null;
+    }
+
+    @Override
+    public Object queryAll(RoleQueryCriteria criteria, Pageable pageable) {
+        Page<Role> page = roleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
+        return PageUtil.toPage(page.map(roleMapper::toDto));
     }
 
     @Override
@@ -64,6 +85,7 @@ public class RoleServiceImpl implements RoleService {
         for(Map userRole:userRolesList){
             RoleSmallDto role= new RoleSmallDto();
             role.setId((Long)(userRole.get("roleId")));
+            role.setLevel((int)userRole.get("level"));
             role.setName(String.valueOf(userRole.get("roleName")));
             list.add(role);
         }

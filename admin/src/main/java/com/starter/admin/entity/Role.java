@@ -19,12 +19,14 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.starter.common.base.BaseEntity;
 import com.starter.common.utils.enums.DataScopeEnum;
 import io.swagger.annotations.ApiModelProperty;
+//import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Getter;
 import lombok.Setter;
-//import me.zhengjie.base.BaseEntity;
-//import me.zhengjie.utils.enums.DataScopeEnum;
 
-//import javax.persistence.*;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -40,15 +42,15 @@ import java.util.Set;
  */
 @Getter
 @Setter
-//@Entity
-//@Table(name = "sys_role")
+@Entity
+@Table(name = "sys_role")
 public class Role extends BaseEntity implements Serializable {
 
-//    @Id
-//    @Column(name = "role_id")`
+    @Id
+    @Column(name = "role_id")
     @NotNull(groups = {Update.class})
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @ApiModelProperty(value = "ID", hidden = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(value = "ID", hidden = true)
     private Long id;
 
 //    @JSONField(serialize = false)
@@ -56,13 +58,14 @@ public class Role extends BaseEntity implements Serializable {
 //    @ApiModelProperty(value = "用户", hidden = true)
 //    private Set<User> users;
 @JSONField(serialize = false)
+@Transient
     private List<User> users = new ArrayList<>();
 
-//    @ManyToMany
-//    @JoinTable(name = "sys_roles_menus",
-//            joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "menu_id",referencedColumnName = "menu_id")})
-//    @ApiModelProperty(value = "菜单", hidden = true)
+    @ManyToMany
+    @JoinTable(name = "sys_roles_menus",
+            joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "menu_id",referencedColumnName = "menu_id")})
+    @ApiModelProperty(value = "菜单", hidden = true)
     private Set<Menu> menus;
 //
 //    @ManyToMany
@@ -79,7 +82,7 @@ public class Role extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "数据权限，全部 、 本级 、 自定义")
     private String dataScope = DataScopeEnum.THIS_LEVEL.getValue();
 
-//    @Column(name = "level")
+    @Column(name = "level")
     @ApiModelProperty(value = "级别，数值越小，级别越大")
     private Integer level = 3;
 
