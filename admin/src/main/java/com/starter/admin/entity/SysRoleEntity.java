@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import com.starter.common.base.BaseEntity;
 import lombok.Data;
 
 /**
@@ -19,7 +20,7 @@ import lombok.Data;
  */
 @Data
 @TableName("sys_role")
-public class SysRoleEntity implements Serializable {
+public class SysRoleEntity extends BaseEntity  implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -57,10 +58,10 @@ public class SysRoleEntity implements Serializable {
 	/**
 	 * 创建日期
 	 */
-	private Date createTime;
+//	private Date createTime;
 	/**
 	 * 更新时间
 	 */
-	private Date updateTime;
+//	private Date updateTime;
 
 }

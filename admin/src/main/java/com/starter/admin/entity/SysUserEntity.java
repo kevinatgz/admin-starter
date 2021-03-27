@@ -1,5 +1,6 @@
 package com.starter.admin.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -30,7 +31,7 @@ public class SysUserEntity extends BaseEntity implements Serializable {
 	/**
 	 * ID
 	 */
-	@TableId
+	@TableId(type = IdType.AUTO)
 	private Long userId;
 	/**
 	 * 部门名称
