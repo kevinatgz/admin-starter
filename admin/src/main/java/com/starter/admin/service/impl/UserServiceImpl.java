@@ -11,10 +11,14 @@ import com.starter.admin.service.mapstruct.UserMapper;
 import com.starter.admin.service.system.dto.DeptSmallDto;
 import com.starter.admin.service.system.dto.RoleSmallDto;
 import com.starter.admin.service.system.dto.UserDto;
+import com.starter.common.exception.EntityExistException;
 import com.starter.common.exception.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +30,8 @@ import java.util.Set;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
+@CacheConfig(cacheNames = "user")
 public class UserServiceImpl implements com.starter.admin.service.user.UserService {
 //    private final UserMapper userMapper;
     @Autowired
@@ -36,14 +42,33 @@ public class UserServiceImpl implements com.starter.admin.service.user.UserServi
     @Autowired
     private RoleService roleService;
 
+    private final SysUserDao userRepository;
+
     @Override
     public UserDto findById(long id) {
         return null;
     }
 
     @Override
-    public void create(User resources) {
+    @Transactional(rollbackFor = Exception.class)
+    public void create(SysUserEntity resources) {
 
+        if (userRepository.getUserByName(resources.getUsername()) != null) {
+            throw new EntityExistException(User.class, "username", resources.getUsername());
+        }
+        QueryWrapper<SysUserEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email",resources.getEmail());
+        int userExist = userRepository.selectCount(queryWrapper);
+        if (userExist>0) {
+            throw new EntityExistException(User.class, "email", resources.getEmail());
+        }
+        QueryWrapper<SysUserEntity> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("phone",resources.getEmail());
+        int userExistPhone = userRepository.selectCount(queryWrapper2);
+        if (userExistPhone>0) {
+            throw new EntityExistException(User.class, "phone", resources.getPhone());
+        }
+        userRepository.insert(resources);
     }
 
     @Override

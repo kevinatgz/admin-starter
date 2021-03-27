@@ -18,6 +18,7 @@ package com.starter.admin.service.user;
 //import me.zhengjie.modules.system.domain.User;
 //import me.zhengjie.modules.system.service.dto.UserDto;
 //import me.zhengjie.modules.system.service.dto.UserQueryCriteria;
+import com.starter.admin.entity.SysUserEntity;
 import com.starter.admin.entity.User;
 import com.starter.admin.service.system.dto.UserDto;
 import org.springframework.data.domain.Pageable;
@@ -46,7 +47,7 @@ public interface UserService {
      * 新增用户
      * @param resources /
      */
-    void create(User resources);
+    void create(SysUserEntity resources);
 
     /**
      * 编辑用户
