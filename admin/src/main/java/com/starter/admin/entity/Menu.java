@@ -23,6 +23,7 @@ import lombok.Setter;
 //import me.zhengjie.base.BaseEntity;
 
 //import javax.persistence.*;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -32,23 +33,23 @@ import java.util.Set;
  * @author Zheng Jie
  * @date 2018-12-17
  */
-//@Entity
+@Entity
 @Getter
 @Setter
-//@Table(name = "sys_menu")
+@Table(name = "sys_menu")
 public class Menu extends BaseEntity implements Serializable {
 
-//    @Id
-//    @Column(name = "menu_id")
-//    @NotNull(groups = {Update.class})
-//    @ApiModelProperty(value = "ID", hidden = true)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "menu_id")
+    @NotNull(groups = {Update.class})
+    @ApiModelProperty(value = "ID", hidden = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @JSONField(serialize = false)
-//    @ManyToMany(mappedBy = "menus")
-//    @ApiModelProperty(value = "菜单角色")
-//    private Set<Role> roles;
+    @JSONField(serialize = false)
+    @ManyToMany(mappedBy = "menus")
+    @ApiModelProperty(value = "菜单角色")
+    private Set<Role> roles;
 
     @ApiModelProperty(value = "菜单标题")
     private String title;
@@ -75,11 +76,11 @@ public class Menu extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "菜单图标")
     private String icon;
 
-//    @Column(columnDefinition = "bit(1) default 0")
+    @Column(columnDefinition = "bit(1) default 0")
     @ApiModelProperty(value = "缓存")
     private Boolean cache;
 
-//    @Column(columnDefinition = "bit(1) default 0")
+    @Column(columnDefinition = "bit(1) default 0")
     @ApiModelProperty(value = "是否隐藏")
     private Boolean hidden;
 

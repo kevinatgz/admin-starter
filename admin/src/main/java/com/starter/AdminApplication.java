@@ -5,6 +5,7 @@ import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import com.starter.common.annotation.rest.AnonymousGetMapping;
 import com.starter.common.utils.RedisUtils;
 import com.starter.common.utils.SpringContextHolder;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,10 +18,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.RestController;
 
 @EnableTransactionManagement
 @SpringBootApplication
+@RestController
 @EnableAsync
+@Api(hidden = true)
 public class AdminApplication {
 
 
