@@ -43,6 +43,7 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 /**
  * api页面 /doc.html
+ *
  * @author Zheng Jie
  * @date 2018-11-23
  */
@@ -60,24 +61,24 @@ public class SwaggerConfig {
     @SuppressWarnings("all")
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .enable(enabled)
-                .pathMapping("/")
-                .apiInfo(apiInfo())
-                .select()
-                .paths(Predicates.not(PathSelectors.regex("/error.*")))
-                .paths(PathSelectors.any())
-                .build()
-                //添加登陆认证
-                .securitySchemes(securitySchemes())
-                .securityContexts(securityContexts());
+            .enable(enabled)
+            .pathMapping("/")
+            .apiInfo(apiInfo())
+            .select()
+            .paths(Predicates.not(PathSelectors.regex("/error.*")))
+            .paths(PathSelectors.any())
+            .build()
+            //添加登陆认证
+            .securitySchemes(securitySchemes())
+            .securityContexts(securityContexts());
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .description("一个简单且易上手的 Spring boot 后台管理框架")
-                .title("EL-ADMIN 接口文档")
-                .version("2.6")
-                .build();
+            .description("一个简单且易上手的 Spring boot 后台管理框架")
+            .title("EL-ADMIN 接口文档")
+            .version("2.6")
+            .build();
     }
 
     private List<SecurityScheme> securitySchemes() {
@@ -99,9 +100,9 @@ public class SwaggerConfig {
 
     private SecurityContext getContextByPath() {
         return SecurityContext.builder()
-                .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("^(?!/auth).*$"))
-                .build();
+            .securityReferences(defaultAuth())
+            .forPaths(PathSelectors.regex("^(?!/auth).*$"))
+            .build();
     }
 
     private List<SecurityReference> defaultAuth() {
@@ -115,7 +116,7 @@ public class SwaggerConfig {
 }
 
 /**
- *  将Pageable转换展示在swagger中
+ * 将Pageable转换展示在swagger中
  */
 @Configuration
 class SwaggerDataConfig {
