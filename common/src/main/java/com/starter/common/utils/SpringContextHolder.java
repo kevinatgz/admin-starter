@@ -80,7 +80,8 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
         T result = defaultValue;
         try {
             result = getBean(Environment.class).getProperty(property, requiredType);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
         return result;
     }
 
@@ -111,7 +112,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     private static void assertContextInjected() {
         if (applicationContext == null) {
             throw new IllegalStateException("applicaitonContext属性未注入, 请在applicationContext" +
-                    ".xml中定义SpringContextHolder或在SpringBoot启动类中注册SpringContextHolder.");
+                ".xml中定义SpringContextHolder或在SpringBoot启动类中注册SpringContextHolder.");
         }
     }
 
@@ -120,7 +121,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
      */
     private static void clearHolder() {
         log.debug("清除SpringContextHolder中的ApplicationContext:"
-                + applicationContext);
+            + applicationContext);
         applicationContext = null;
     }
 
