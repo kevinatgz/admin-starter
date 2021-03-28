@@ -1,14 +1,15 @@
 /**
  * Copyright (c) 2016-2019 人人开源 All rights reserved.
- *
+ * <p>
  * https://www.renren.io
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
 package com.starter.common.xss;
 
 //import io.renren.common.exception.RRException;
+
 import com.starter.common.exception.RRException;
 import org.apache.commons.lang.StringUtils;
 
@@ -23,8 +24,8 @@ public class SQLFilter {
      * SQL注入过滤
      * @param str  待验证的字符串
      */
-    public static String sqlInject(String str){
-        if(StringUtils.isBlank(str)){
+    public static String sqlInject(String str) {
+        if (StringUtils.isBlank(str)) {
             return null;
         }
         //去掉'|"|;|\字符
@@ -40,8 +41,8 @@ public class SQLFilter {
         String[] keywords = {"master", "truncate", "insert", "select", "delete", "update", "declare", "alter", "drop"};
 
         //判断是否包含非法字符
-        for(String keyword : keywords){
-            if(str.indexOf(keyword) != -1){
+        for (String keyword : keywords) {
+            if (str.indexOf(keyword) != -1) {
                 throw new RRException("包含非法字符");
             }
         }
