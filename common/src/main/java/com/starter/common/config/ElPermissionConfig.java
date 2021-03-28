@@ -32,10 +32,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ElPermissionConfig {
 
-    public Boolean check(String ...permissions){
+    public Boolean check(String... permissions) {
         // 获取当前用户的所有权限
         List<String> elPermissions = SecurityUtils.getCurrentUser().getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        log.info("elPermissions:"+elPermissions);
+        log.info("elPermissions:" + elPermissions);
         // 判断当前用户的所有权限是否包含接口上定义的权限
         return elPermissions.contains("admin") || Arrays.stream(permissions).anyMatch(elPermissions::contains);
     }

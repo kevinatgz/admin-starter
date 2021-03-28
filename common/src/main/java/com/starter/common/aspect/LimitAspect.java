@@ -46,10 +46,10 @@ import java.lang.reflect.Method;
 @Component
 public class LimitAspect {
 
-    private final RedisTemplate<Object,Object> redisTemplate;
+    private final RedisTemplate<Object, Object> redisTemplate;
     private static final Logger logger = LoggerFactory.getLogger(LimitAspect.class);
 
-    public LimitAspect(RedisTemplate<Object,Object> redisTemplate) {
+    public LimitAspect(RedisTemplate<Object, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -73,7 +73,7 @@ public class LimitAspect {
             }
         }
 
-        ImmutableList<Object> keys = ImmutableList.of(StringUtils.join(limit.prefix(), "_", key, "_", request.getRequestURI().replaceAll("/","_")));
+        ImmutableList<Object> keys = ImmutableList.of(StringUtils.join(limit.prefix(), "_", key, "_", request.getRequestURI().replaceAll("/", "_")));
 
         String luaScript = buildLuaScript();
         RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
@@ -91,14 +91,14 @@ public class LimitAspect {
      */
     private String buildLuaScript() {
         return "local c" +
-                "\nc = redis.call('get',KEYS[1])" +
-                "\nif c and tonumber(c) > tonumber(ARGV[1]) then" +
-                "\nreturn c;" +
-                "\nend" +
-                "\nc = redis.call('incr',KEYS[1])" +
-                "\nif tonumber(c) == 1 then" +
-                "\nredis.call('expire',KEYS[1],ARGV[2])" +
-                "\nend" +
-                "\nreturn c;";
+            "\nc = redis.call('get',KEYS[1])" +
+            "\nif c and tonumber(c) > tonumber(ARGV[1]) then" +
+            "\nreturn c;" +
+            "\nend" +
+            "\nc = redis.call('incr',KEYS[1])" +
+            "\nif tonumber(c) == 1 then" +
+            "\nredis.call('expire',KEYS[1],ARGV[2])" +
+            "\nend" +
+            "\nreturn c;";
     }
 }

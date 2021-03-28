@@ -24,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * 加密
+ *
  * @author Zheng Jie
  * @date 2018-11-23
  */
@@ -37,7 +38,7 @@ public class EncryptUtils {
     private static final IvParameterSpec IV = new IvParameterSpec(STR_PARAM.getBytes(StandardCharsets.UTF_8));
 
     private static DESKeySpec getDesKeySpec(String source) throws Exception {
-        if (source == null || source.length() == 0){
+        if (source == null || source.length() == 0) {
             return null;
         }
         cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
@@ -54,7 +55,7 @@ public class EncryptUtils {
         SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
         cipher.init(Cipher.ENCRYPT_MODE, secretKey, IV);
         return byte2hex(
-                cipher.doFinal(source.getBytes(StandardCharsets.UTF_8))).toUpperCase();
+            cipher.doFinal(source.getBytes(StandardCharsets.UTF_8))).toUpperCase();
     }
 
     /**
@@ -87,7 +88,7 @@ public class EncryptUtils {
 
     private static byte[] hex2byte(byte[] b) {
         int size = 2;
-        if ((b.length % size) != 0){
+        if ((b.length % size) != 0) {
             throw new IllegalArgumentException("长度不是偶数");
         }
         byte[] b2 = new byte[b.length / 2];
