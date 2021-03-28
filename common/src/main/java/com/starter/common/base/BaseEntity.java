@@ -36,6 +36,7 @@ import java.sql.Timestamp;
 
 /**
  * 通用字段， is_del 根据需求自行添加
+ *
  * @author Zheng Jie
  * @Date 2019年10月24日20:46:32
  */
@@ -55,21 +56,23 @@ public class BaseEntity implements Serializable {
     @ApiModelProperty(value = "更新人", hidden = true)
     private String updateBy;
 
-//    @CreationTimestamp
+    //    @CreationTimestamp
 //    @Column(name = "create_time", updatable = false)
     @ApiModelProperty(value = "创建时间", hidden = true)
     private Timestamp createTime;
 
-//    @UpdateTimestamp
+    //    @UpdateTimestamp
 //    @Column(name = "update_time")
     @ApiModelProperty(value = "更新时间", hidden = true)
     private Timestamp updateTime;
 
     /* 分组校验 */
-    public @interface Create {}
+    public @interface Create {
+    }
 
     /* 分组校验 */
-    public @interface Update {}
+    public @interface Update {
+    }
 
     @Override
     public String toString() {
