@@ -81,10 +81,10 @@ public class LogAspect {
         Object result;
         currentTime.set(System.currentTimeMillis());
         result = joinPoint.proceed();
-        SysLogEntity log = new SysLogEntity("INFO",System.currentTimeMillis() - currentTime.get());
+        SysLogEntity log = new SysLogEntity("INFO", System.currentTimeMillis() - currentTime.get());
         currentTime.remove();
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
-        logService.saveLog(getUsername(), StringUtils.getBrowser(request), StringUtils.getIp(request),joinPoint, log);
+        logService.saveLog(getUsername(), StringUtils.getBrowser(request), StringUtils.getIp(request), joinPoint, log);
         return result;
     }
 
@@ -92,21 +92,21 @@ public class LogAspect {
      * 配置异常通知
      *
      * @param joinPoint join point for advice
-     * @param e exception
+     * @param e         exception
      */
     @AfterThrowing(pointcut = "logPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        SysLogEntity log = new SysLogEntity("ERROR",System.currentTimeMillis() - currentTime.get());
+        SysLogEntity log = new SysLogEntity("ERROR", System.currentTimeMillis() - currentTime.get());
         currentTime.remove();
         log.setExceptionDetail(ThrowableUtil.getStackTrace(e).getBytes());
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
-        logService.saveLog(getUsername(), StringUtils.getBrowser(request), StringUtils.getIp(request), (ProceedingJoinPoint)joinPoint, log);
+        logService.saveLog(getUsername(), StringUtils.getBrowser(request), StringUtils.getIp(request), (ProceedingJoinPoint) joinPoint, log);
     }
 
     public String getUsername() {
         try {
             return SecurityUtils.getCurrentUsername();
-        }catch (Exception e){
+        } catch (Exception e) {
             return "";
         }
     }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -34,18 +35,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SysLogServiceImpl extends ServiceImpl<SysLogDao, SysLogEntity> implements SysLogService {
     private final SysLogDao logRepository;
     private static final Logger log = LoggerFactory.getLogger(SysLogServiceImpl.class);
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<SysLogEntity> page = this.page(
-                new Query<SysLogEntity>().getPage(params),
-                new QueryWrapper<SysLogEntity>()
+            new Query<SysLogEntity>().getPage(params),
+            new QueryWrapper<SysLogEntity>()
         );
 
         return new PageUtils(page);
     }
 
 
-        @Override
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveLog(String username, String browser, String ip, ProceedingJoinPoint joinPoint, SysLogEntity log) {
 
