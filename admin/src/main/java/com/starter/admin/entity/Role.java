@@ -53,13 +53,14 @@ public class Role extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "ID", hidden = true)
     private Long id;
 
-//    @JSONField(serialize = false)
-//    @ManyToMany(mappedBy = "roles")
-//    @ApiModelProperty(value = "用户", hidden = true)
-//    private Set<User> users;
-@JSONField(serialize = false)
-@Transient
-    private List<User> users = new ArrayList<>();
+    @JSONField(serialize = false)
+    @ManyToMany(mappedBy = "roles")
+    @ApiModelProperty(value = "用户", hidden = true)
+    private Set<User> users;
+
+//@JSONField(serialize = false)
+//@Transient
+//    private List<User> users = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "sys_roles_menus",
@@ -68,12 +69,12 @@ public class Role extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "菜单", hidden = true)
     private Set<Menu> menus;
 //
-//    @ManyToMany
-//    @JoinTable(name = "sys_roles_depts",
-//            joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "dept_id",referencedColumnName = "dept_id")})
-//    @ApiModelProperty(value = "部门", hidden = true)
-//    private Set<Dept> depts;
+    @ManyToMany
+    @JoinTable(name = "sys_roles_depts",
+            joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "dept_id",referencedColumnName = "dept_id")})
+    @ApiModelProperty(value = "部门", hidden = true)
+    private Set<Dept> depts;
 
     @NotBlank
     @ApiModelProperty(value = "名称", hidden = true)

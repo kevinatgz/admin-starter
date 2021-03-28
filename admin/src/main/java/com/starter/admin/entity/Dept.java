@@ -23,6 +23,7 @@ import lombok.Setter;
 //import me.zhengjie.base.BaseEntity;
 
 //import javax.persistence.*;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -33,21 +34,21 @@ import java.util.Set;
 * @author Zheng Jie
 * @date 2019-03-25
 */
-//@Entity
+@Entity
 @Getter
 @Setter
-//@Table(name="sys_dept")
+@Table(name="sys_dept")
 public class Dept extends BaseEntity implements Serializable {
 
-//    @Id
-//    @Column(name = "dept_id")
+    @Id
+    @Column(name = "dept_id")
     @NotNull(groups = Update.class)
     @ApiModelProperty(value = "ID", hidden = true)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JSONField(serialize = false)
-//    @ManyToMany(mappedBy = "depts")
+    @ManyToMany(mappedBy = "depts")
     @ApiModelProperty(value = "角色")
     private Set<Role> roles;
 

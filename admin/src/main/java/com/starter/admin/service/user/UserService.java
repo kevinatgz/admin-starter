@@ -21,6 +21,7 @@ package com.starter.admin.service.user;
 import com.starter.admin.entity.SysUserEntity;
 import com.starter.admin.entity.User;
 import com.starter.admin.service.system.dto.UserDto;
+import com.starter.admin.service.system.dto.UserQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,6 +49,13 @@ public interface UserService {
      * @param resources /
      */
     void create(SysUserEntity resources);
+
+    /**
+     * 新增用户
+     * @param resources /
+     */
+    void create(User resources);
+
 
     /**
      * 编辑用户
@@ -95,14 +103,14 @@ public interface UserService {
      * @param pageable 分页参数
      * @return /
      */
-//    Object queryAll(UserQueryCriteria criteria, Pageable pageable);
+    Object queryAll(UserQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部不分页
      * @param criteria 条件
      * @return /
      */
-//    List<UserDto> queryAll(UserQueryCriteria criteria);
+    List<UserDto> queryAll(UserQueryCriteria criteria);
 
     /**
      * 导出数据

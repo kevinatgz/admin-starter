@@ -15,16 +15,19 @@ import com.starter.admin.service.system.dto.RoleSmallDto;
 import com.starter.admin.service.system.dto.UserDto;
 import com.starter.common.utils.PageUtil;
 import com.starter.common.utils.QueryHelp;
+import com.starter.common.utils.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -54,9 +57,18 @@ public class RoleServiceImpl implements RoleService {
         return PageUtil.toPage(page.map(roleMapper::toDto));
     }
 
+//    @Override
+//    public RoleDto findById(long id) {
+//        return null;
+//    }
+
     @Override
+    @Cacheable(key = "'id:' + #p0")
+    @Transactional(rollbackFor = Exception.class)
     public RoleDto findById(long id) {
-        return null;
+        Role role = roleRepository.findById(id).orElseGet(Role::new);
+        ValidationUtil.isNull(role.getId(), "Role", "id", id);
+        return roleMapper.toDto(role);
     }
 
     @Override
@@ -87,15 +99,28 @@ public class RoleServiceImpl implements RoleService {
             role.setId((Long)(userRole.get("roleId")));
             role.setLevel((int)userRole.get("level"));
             role.setName(String.valueOf(userRole.get("roleName")));
+            role.setDataScope(String.valueOf(userRole.get("dataScope")));
             list.add(role);
         }
 
         return list;
     }
 
+//    @Override
+//    public Integer findByRoles(Set<Role> roles) {
+//        return null;
+//    }
+
     @Override
     public Integer findByRoles(Set<Role> roles) {
-        return null;
+        if (roles.size() == 0) {
+            return Integer.MAX_VALUE;
+        }
+        Set<RoleDto> roleDtos = new HashSet<>();
+        for (Role role : roles) {
+            roleDtos.add(findById(role.getId()));
+        }
+        return Collections.min(roleDtos.stream().map(RoleDto::getLevel).collect(Collectors.toList()));
     }
 
     @Override

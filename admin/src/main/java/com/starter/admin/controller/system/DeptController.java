@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.starter.admin.entity.SysDeptEntity;
 import com.starter.admin.service.DeptService;
 //import com.starter.admin.service.SysDeptService;
+import com.starter.admin.service.SysDeptService;
 import com.starter.admin.service.impl.DeptServiceImpl;
 import com.starter.admin.service.system.dto.DeptDto;
 import com.starter.common.utils.PageUtil;
@@ -55,7 +56,7 @@ import java.util.*;
 public class DeptController {
 
     @Autowired
-    private final DeptService deptService;
+    private final SysDeptService deptService;
     private static final String ENTITY_NAME = "dept";
 
 //    @ApiOperation("导出部门数据")

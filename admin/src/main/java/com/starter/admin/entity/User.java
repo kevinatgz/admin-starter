@@ -15,13 +15,16 @@
  */
 package com.starter.admin.entity;
 
+import com.starter.admin.domain.Job;
 import com.starter.common.base.BaseEntity;
+import com.starter.common.base.BaseJpaEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 //import me.zhengjie.base.BaseEntity;
 //
 //import javax.persistence.*;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -34,40 +37,40 @@ import java.util.Set;
  * @author Zheng Jie
  * @date 2018-11-22
  */
-//@Entity
+@Entity
 @Getter
 @Setter
-//@Table(name="sys_user")
-public class User extends BaseEntity implements Serializable {
+@Table(name="sys_user")
+public class User extends BaseJpaEntity implements Serializable {
 
-//    @Id
-//    @Column(name = "user_id")
+    @Id
+    @Column(name = "user_id")
     @NotNull(groups = Update.class)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(value = "ID", hidden = true)
     private Long id;
 
-//    @ManyToMany
+    @ManyToMany
     @ApiModelProperty(value = "用户角色")
-//    @JoinTable(name = "sys_users_roles",
-//            joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "user_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")})
+    @JoinTable(name = "sys_users_roles",
+            joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")})
     private Set<Role> roles;
 
-//    @ManyToMany
-//    @ApiModelProperty(value = "用户岗位")
-////    @JoinTable(name = "sys_users_jobs",
-////            joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "user_id")},
-////            inverseJoinColumns = {@JoinColumn(name = "job_id",referencedColumnName = "job_id")})
-//    private Set<Job> jobs;
+    @ManyToMany
+    @ApiModelProperty(value = "用户岗位")
+    @JoinTable(name = "sys_users_jobs",
+            joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "job_id",referencedColumnName = "job_id")})
+    private Set<Job> jobs;
 
-//    @OneToOne
-//    @JoinColumn(name = "dept_id")
+    @OneToOne
+    @JoinColumn(name = "dept_id")
     @ApiModelProperty(value = "用户部门")
     private Dept dept;
 
     @NotBlank
-//    @Column(unique = true)
+    @Column(unique = true)
     @ApiModelProperty(value = "用户名称")
     private String username;
 
@@ -98,12 +101,12 @@ public class User extends BaseEntity implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "是否启用")
-    private Boolean enabled;
+    private Long enabled;
 
     @ApiModelProperty(value = "是否为admin账号", hidden = true)
     private Boolean isAdmin = false;
 
-//    @Column(name = "pwd_reset_time")
+    @Column(name = "pwd_reset_time")
     @ApiModelProperty(value = "最后修改密码的时间", hidden = true)
     private Date pwdResetTime;
 

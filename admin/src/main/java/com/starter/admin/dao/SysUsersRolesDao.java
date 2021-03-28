@@ -23,7 +23,7 @@ import java.util.Set;
 @Mapper
 public interface SysUsersRolesDao extends BaseMapper<SysUsersRolesEntity> {
 
-    @Select("SELECT u.user_id as userId,r.role_id as roleId,r.name as roleName,r.level FROM sys_user u join sys_users_roles ur on u.user_id=ur.user_id " +
+    @Select("SELECT u.user_id as userId,r.role_id as roleId,r.name as roleName,r.data_scope as dataScope,r.level FROM sys_user u join sys_users_roles ur on u.user_id=ur.user_id " +
             "join sys_role r on ur.role_id=r.role_id" +
             " WHERE u.user_id = #{userId} ")
     List<Map<String,Object>> selectUserRoles(long userId);
@@ -32,7 +32,7 @@ public interface SysUsersRolesDao extends BaseMapper<SysUsersRolesEntity> {
             " WHERE rm.role_id = #{roleId} ")
     Set<Map<String,Object>> selectMenusByRole(long roleId);
 
-    @Select("SELECT r.role_id as roleId,r.name as roleName,r.level FROM sys_user u join sys_users_roles ur on u.user_id=ur.user_id " +
+    @Select("SELECT r.role_id as roleId,r.name as roleName,r.level,r.data_scope as dataScope FROM sys_user u join sys_users_roles ur on u.user_id=ur.user_id " +
             "join sys_role r on ur.role_id=r.role_id" +
             " WHERE u.user_id = #{userId} ")
     List<Role> getRoles(long userId);
