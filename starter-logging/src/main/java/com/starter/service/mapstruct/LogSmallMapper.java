@@ -15,9 +15,6 @@
  */
 package com.starter.service.mapstruct;
 
-//import me.zhengjie.base.BaseMapper;
-//import me.zhengjie.domain.Log;
-//import me.zhengjie.service.dto.LogSmallDTO;
 
 import com.starter.common.base.BaseMapper;
 import com.starter.domain.Log;

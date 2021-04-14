@@ -170,11 +170,12 @@ public class RoleServiceImpl implements RoleService {
             role.setMenus(menuSet);
             rolelist.add(role);
         }
-//        log.info("rolelist="+rolelist);
+        log.info("rolelist="+rolelist);
 
         permissions = rolelist.stream().flatMap(role -> role.getMenus().stream())
                 .filter(menu -> StringUtils.isNotBlank(menu.getPermission()))
                 .map(Menu::getPermission).collect(Collectors.toSet());
+        log.info("permissions="+permissions);
         return permissions.stream().map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
