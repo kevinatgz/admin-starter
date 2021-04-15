@@ -17,7 +17,6 @@ package com.starter.admin.controller.system;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.starter.admin.entity.Dept;
-import com.starter.admin.entity.SysUserEntity;
 import com.starter.admin.entity.User;
 import com.starter.admin.entity.vo.UserPassVo;
 import com.starter.admin.service.DataService;
@@ -26,7 +25,7 @@ import com.starter.admin.service.RoleService;
 import com.starter.admin.service.system.dto.RoleSmallDto;
 import com.starter.admin.service.system.dto.UserDto;
 import com.starter.admin.service.system.dto.UserQueryCriteria;
-import com.starter.admin.service.user.UserService;
+import com.starter.admin.service.UserService;
 import com.starter.annotation.Log;
 import com.starter.common.config.RsaProperties;
 import com.starter.common.exception.BadRequestException;
@@ -60,11 +59,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

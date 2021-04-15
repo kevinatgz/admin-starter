@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.starter.admin.service.user;
+package com.starter.admin.service;
 
 //import me.zhengjie.modules.system.domain.User;
 //import me.zhengjie.modules.system.service.dto.UserDto;

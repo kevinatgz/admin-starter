@@ -7,8 +7,8 @@ import com.starter.admin.dao.UserRepository;
 import com.starter.admin.entity.SysDeptEntity;
 import com.starter.admin.entity.SysUserEntity;
 import com.starter.admin.entity.User;
-import com.starter.admin.entity.vo.UserPassVo;
 import com.starter.admin.service.RoleService;
+import com.starter.admin.service.UserService;
 import com.starter.admin.service.mapstruct.SysUserMapper;
 import com.starter.admin.service.mapstruct.UserMapper;
 import com.starter.admin.service.security.UserCacheClean;
@@ -17,23 +17,17 @@ import com.starter.admin.service.system.dto.RoleSmallDto;
 import com.starter.admin.service.system.dto.UserDto;
 import com.starter.admin.service.system.dto.UserQueryCriteria;
 import com.starter.common.config.FileProperties;
-import com.starter.common.config.RsaProperties;
 import com.starter.common.exception.EntityExistException;
 import com.starter.common.exception.EntityNotFoundException;
 import com.starter.common.utils.*;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +40,7 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 @CacheConfig(cacheNames = "user")
-public class UserServiceImpl implements com.starter.admin.service.user.UserService {
+public class UserServiceImpl implements UserService {
 //    private final UserMapper userMapper;
     @Autowired
     private SysUserDao sysUserDao;

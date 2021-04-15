@@ -20,7 +20,7 @@ import com.starter.admin.service.DataService;
 import com.starter.admin.service.RoleService;
 import com.starter.admin.service.security.dto.JwtUserDto;
 import com.starter.admin.service.system.dto.UserDto;
-import com.starter.admin.service.user.UserService;
+import com.starter.admin.service.UserService;
 import com.starter.common.exception.BadRequestException;
 import com.starter.common.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
