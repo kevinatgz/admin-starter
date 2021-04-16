@@ -49,6 +49,25 @@ spring:
           config:
             multi-statement-allow: true
 
+
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      batch-size: 16384
+      retries: 0
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+    consumer:
+      enable-auto-commit: true
+      group-id: gridMonitorGroup
+      auto-commit-interval: 1000
+      auto-offset-reset: latest
+      bootstrap-servers: "localhost:9092"
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      concurrency: 3
+
 # 登录相关配置
 login:
   # 登录缓存
