@@ -63,7 +63,7 @@ spring:
       group-id: gridMonitorGroup
       auto-commit-interval: 1000
       auto-offset-reset: latest
-      bootstrap-servers: "localhost:9092"
+      bootstrap-servers: "192.168.128.21:9092,192.168.128.24:9092,192.168.128.25:9092"
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
       concurrency: 3
