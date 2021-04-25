@@ -2,6 +2,8 @@ server:
   port: 8008
 
 spring:
+  application:
+    name: admin
   freemarker:
     check-template-location: false
   profiles:
@@ -30,6 +32,11 @@ spring:
     #连接超时时间
     timeout: 5000
 
+
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
 task:
   pool:
     # 核心线程池大小
