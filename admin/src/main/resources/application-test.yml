@@ -4,7 +4,7 @@ spring:
     druid:
       db-type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      url: jdbc:log4jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:admin_starter}?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+      url: jdbc:log4jdbc:mysql://${DB_HOST:192.168.128.1}:${DB_PORT:3306}/${DB_NAME:admin_starter}?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
       username: ${DB_USER:root}
       password: ${DB_PWD:123456}
       # 初始连接数
@@ -49,6 +49,15 @@ spring:
           config:
             multi-statement-allow: true
 
+  redis:
+    #数据库索引
+    database: ${REDIS_DB:0}
+    host: ${REDIS_HOST:192.168.128.21}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PWD:123456}
+    #连接超时时间
+    timeout: 5000
+
 
   kafka:
     producer:
@@ -73,7 +82,7 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://registryhost:8761/eureka
 # 登录相关配置
 login:
   # 登录缓存
