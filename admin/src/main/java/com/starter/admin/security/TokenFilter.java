@@ -70,7 +70,8 @@ public class TokenFilter extends GenericFilterBean {
             throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String token = resolveToken(httpServletRequest);
-        log.info("token=="+token);
+        if(token!=null)
+            log.info("token=="+token);
         // 对于 Token 为空的不需要去查 Redis
         if (StrUtil.isNotBlank(token)) {
             OnlineUserDto onlineUserDto = null;
