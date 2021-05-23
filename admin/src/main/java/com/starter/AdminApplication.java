@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.jms.annotation.EnableJms;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 @EnableAsync
+@EnableJms
 @Api(hidden = true)
 public class AdminApplication {
 
@@ -38,12 +40,12 @@ public class AdminApplication {
         return new SpringContextHolder();
     }
 
-    @Bean
-    public ServletWebServerFactory webServerFactory() {
-        TomcatServletWebServerFactory fa = new TomcatServletWebServerFactory();
-        fa.addConnectorCustomizers(connector -> connector.setProperty("relaxedQueryChars", "[]{}"));
-        return fa;
-    }
+//    @Bean
+//    public ServletWebServerFactory webServerFactory() {
+//        TomcatServletWebServerFactory fa = new TomcatServletWebServerFactory();
+//        fa.addConnectorCustomizers(connector -> connector.setProperty("relaxedQueryChars", "[]{}"));
+//        return fa;
+//    }
 
     /**
      * 访问首页提示
