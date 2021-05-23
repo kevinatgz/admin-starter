@@ -7,7 +7,7 @@ spring:
   freemarker:
     check-template-location: false
   profiles:
-    active: test
+    active: dev
   jackson:
     time-zone: GMT+8
   data:
@@ -73,3 +73,5 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
   returnPageInfo: check
+
+queueName: springboot-activemq-queue
