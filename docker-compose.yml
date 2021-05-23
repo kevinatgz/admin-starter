@@ -1,0 +1,21 @@
+version: '2'
+services:
+  admin:
+    image: admin:latest
+    volumes:
+      - /Users/kevin/Java/Project/admin-starter/logs:/Users/kevin/Java/Project/admin-starter/logs
+    container_name: starter-admin
+    links:
+      - service-registry:registryhost
+    restart: always
+    ports:
+      - '8038:8008'
+    depends_on:
+      - service-registry
+  service-registry:
+    image: service-registry
+    container_name: service-registry
+    ports:
+      - '8761:8761'
+    restart: always
+
