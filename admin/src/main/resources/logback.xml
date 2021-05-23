@@ -111,6 +111,42 @@
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
     </appender>
 
+    <!--DEBUG日志输出到LogStash-->
+    <appender name="LOG_STASH_DEBUG" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <destination>${LOGSTASH_HOST}:4560</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>Asia/Shanghai</timeZone>
+                </timestamp>
+                <!--自定义日志输出格式-->
+                <pattern>
+                    <pattern>
+                        {
+                        "project": "admin",
+                        "level": "%level",
+                        "service": "${APP_NAME:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger",
+                        "message": "%message",
+                        "stack_trace": "%exception{20}"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+        <!--当有多个LogStash服务时，设置访问策略为轮询-->
+        <connectionStrategy>
+            <roundRobin>
+                <connectionTTL>5 minutes</connectionTTL>
+            </roundRobin>
+        </connectionStrategy>
+    </appender>
+
     <!-- JSON格式日志 -->
     <appender name="LOGSTASH_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log_path}/log_json.json</file>
@@ -147,17 +183,53 @@
             </providers>
         </encoder>
     </appender>
+
+    <!--接口访问记录日志输出到LogStash-->
+    <appender name="LOG_STASH_RECORD" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${LOGSTASH_HOST}:4563</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>Asia/Shanghai</timeZone>
+                </timestamp>
+                <!--自定义日志输出格式-->
+                <pattern>
+                    <pattern>
+                        {
+                        "project": "admin",
+                        "level": "%level",
+                        "service": "${APP_NAME:-}",
+                        "class": "%logger",
+                        "message": "%message"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+        <!--当有多个LogStash服务时，设置访问策略为轮询-->
+        <connectionStrategy>
+            <roundRobin>
+                <connectionTTL>5 minutes</connectionTTL>
+            </roundRobin>
+        </connectionStrategy>
+    </appender>
+
     <logger name="org.springframework" level="WARN" />
     <!--普通日志输出到控制台-->
     <!-- 生产环境下，将此级别配置为适合的级别，以免日志文件太多或影响程序性能-->
-    <root level="info">
+    <root level="INFO">
         <appender-ref ref="LOGSTASH"/>
         <appender-ref ref="console" />
         <appender-ref ref="INFO" />
         <appender-ref ref="ERROR" />
         <appender-ref ref="WARN" />
-<!--        <appender-ref ref="LOGSTASH_FILE" />-->
+        <appender-ref ref="LOGSTASH_FILE" />
+        <appender-ref ref="LOG_STASH_DEBUG"/>
     </root>
+
+    <logger name="com.starter" level="DEBUG">
+        <appender-ref ref="LOG_STASH_RECORD"/>
+    </logger>
 
     <!--监控sql日志输出 -->
     <logger name="jdbc.sqlonly" level="INFO" additivity="false">
