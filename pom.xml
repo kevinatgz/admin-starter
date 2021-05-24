@@ -36,7 +36,7 @@
         <mapstruct.version>1.4.1.Final</mapstruct.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons.io.version>2.5</commons.io.version>
-        <commons.codec.version>1.10</commons.codec.version>
+        <commons.codec.version>1.15</commons.codec.version>
 
     </properties>
     <dependencies>
