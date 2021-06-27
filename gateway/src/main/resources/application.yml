@@ -6,28 +6,28 @@ spring:
   profiles:
     active: dev
   cloud:
-    loadbalancer:
-      ribbon:
-        enabled: false
-    config:
-      server:
-        git:
-          uri: https://github.com/kevinatgz/spring-cloud-study
-          search-paths: config-repo
-    bus:
-      enabled: true
-      trace:
-        enabled: true
+#    loadbalancer:
+#      ribbon:
+#        enabled: false
+#    config:
+#      server:
+#        git:
+#          uri: https://github.com/kevinatgz/spring-cloud-study
+#          search-paths: config-repo
+#    bus:
+#      enabled: true
+#      trace:
+#        enabled: true
 
-eureka:
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+#eureka:
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: bus-refresh
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: bus-refresh
