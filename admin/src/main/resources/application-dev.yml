@@ -68,7 +68,8 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
       concurrency: 3
   activemq:
-    broker-url: tcp://192.168.128.21:61616
+#    broker-url: tcp://192.168.128.21:61616
+    broker-url: tcp://localhost:61617
     user: admin
     password: admin
     close-timeout: 15s   # 在考虑结束之前等待的时间
@@ -83,31 +84,31 @@ spring:
       idle-timeout: 60s    #空闲的连接过期时间，默认为30秒
 
   cloud:
-    loadbalancer:
-      ribbon:
-        enabled: false
-    config:
-      server:
-        git:
-          uri: https://github.com/kevinatgz/spring-cloud-study
-          search-paths: config-repo
-    bus:
-      enabled: true
-      trace:
-        enabled: true
+#    loadbalancer:
+#      ribbon:
+#        enabled: false
+#    config:
+#      server:
+#        git:
+#          uri: https://github.com/kevinatgz/spring-cloud-study
+#          search-paths: config-repo
+#    bus:
+#      enabled: true
+#      trace:
+#        enabled: true
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: bus-refresh
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: bus-refresh
-
-eureka:
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+#eureka:
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
 # 登录相关配置
 login:
   # 登录缓存

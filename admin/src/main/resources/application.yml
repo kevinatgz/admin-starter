@@ -34,9 +34,9 @@ spring:
 
 
   cloud:
-    loadbalancer:
-      ribbon:
-        enabled: false
+#    loadbalancer:
+#      ribbon:
+#        enabled: false
 task:
   pool:
     # 核心线程池大小
