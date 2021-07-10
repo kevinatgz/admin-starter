@@ -66,7 +66,8 @@ public class ActivemqTests {
         BrokerViewMBean mBean=null;
         MBeanServerConnection connection=null;
         try{
-            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://192.168.128.21:" + connectorPort + connectorPath);
+//            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://192.168.128.21:" + connectorPort + connectorPath);
+            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:" + connectorPort + connectorPath);
             JMXConnector connector = JMXConnectorFactory.connect(url);
             connector.connect();
             connection = connector.getMBeanServerConnection();
@@ -93,7 +94,6 @@ public class ActivemqTests {
     @Test
     public void testSendQueue() throws JsonProcessingException {
 //        queueProducer.sendQueue("haha");
-
         queueProducer.sendDelayQueue();
     }
 
