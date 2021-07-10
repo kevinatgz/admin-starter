@@ -1,0 +1,31 @@
+spring:  
+  application:
+    name: order
+  cloud:
+    consul:
+      host: 192.168.128.21
+      port: 8503
+      discovery:
+        instance-id: "n${spring.cloud.client.hostname}:${spring.application.name}:8808"
+
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+
+server.port: 8808
+
+---
+spring:
+  profiles: zone1
+  cloud:
+    consul:
+      discovery:
+        instanceZone: zone1
+
+---
+spring:
+  profiles: zone2
+  cloud:
+    consul:
+      discovery:
+        instanceZone: zone2

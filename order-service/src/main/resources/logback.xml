@@ -148,41 +148,41 @@
 <!--    </appender>-->
 
     <!-- JSON格式日志 -->
-    <appender name="LOGSTASH_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log_path}/log_json.json</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log_path}/json/log_json_%d{yyyy-MM-dd}_%i.json</fileNamePattern>
-            <!-- 除按日志记录之外，还配置了日志文件不能超过20M，若超过20M，日志文件会以索引0开始， 命名日志文件，例如log_json_2020-20-20_0.log -->
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>20MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-            <!--日志文件保留天数-->
-            <MaxHistory>10</MaxHistory>
-        </rollingPolicy>
-        <!-- 追加方式记录日志-->
-        <append>true</append>
-        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <providers>
-                <timestamp>
-                    <timeZone>UTC</timeZone>
-                </timestamp>
-                <pattern>
-                    <pattern>
-                        {
+<!--    <appender name="LOGSTASH_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <file>${log_path}/log_json.json</file>-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>${log_path}/json/log_json_%d{yyyy-MM-dd}_%i.json</fileNamePattern>-->
+<!--            &lt;!&ndash; 除按日志记录之外，还配置了日志文件不能超过20M，若超过20M，日志文件会以索引0开始， 命名日志文件，例如log_json_2020-20-20_0.log &ndash;&gt;-->
+<!--            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+<!--                <maxFileSize>20MB</maxFileSize>-->
+<!--            </timeBasedFileNamingAndTriggeringPolicy>-->
+<!--            &lt;!&ndash;日志文件保留天数&ndash;&gt;-->
+<!--            <MaxHistory>10</MaxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        &lt;!&ndash; 追加方式记录日志&ndash;&gt;-->
+<!--        <append>true</append>-->
+<!--        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">-->
+<!--            <providers>-->
+<!--                <timestamp>-->
+<!--                    <timeZone>UTC</timeZone>-->
+<!--                </timestamp>-->
+<!--                <pattern>-->
+<!--                    <pattern>-->
+<!--                        {-->
 
-                        "app": "${app_name}",
-                        "level": "%level",
-                        "time": "%d{yyyy-MM-dd HH:mm:ss.SSS}",
-                        "thread": "%thread",
-                        "class": "%logger{40} Line:%-3L",
-                        "message": "%message",
-                        "stack_trace": "%exception{10}"
-                        }
-                    </pattern>
-                </pattern>
-            </providers>
-        </encoder>
-    </appender>
+<!--                        "app": "${app_name}",-->
+<!--                        "level": "%level",-->
+<!--                        "time": "%d{yyyy-MM-dd HH:mm:ss.SSS}",-->
+<!--                        "thread": "%thread",-->
+<!--                        "class": "%logger{40} Line:%-3L",-->
+<!--                        "message": "%message",-->
+<!--                        "stack_trace": "%exception{10}"-->
+<!--                        }-->
+<!--                    </pattern>-->
+<!--                </pattern>-->
+<!--            </providers>-->
+<!--        </encoder>-->
+<!--    </appender>-->
 
     <!--接口访问记录日志输出到LogStash-->
 <!--    <appender name="LOG_STASH_RECORD" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
@@ -223,7 +223,7 @@
         <appender-ref ref="INFO" />
         <appender-ref ref="ERROR" />
         <appender-ref ref="WARN" />
-        <appender-ref ref="LOGSTASH_FILE" />
+<!--        <appender-ref ref="LOGSTASH_FILE" />-->
 <!--        <appender-ref ref="LOG_STASH_DEBUG"/>-->
     </root>
 
