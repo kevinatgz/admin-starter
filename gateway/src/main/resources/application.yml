@@ -6,6 +6,29 @@ spring:
   profiles:
     active: dev
   cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: admin-service
+          uri: lb://admin
+          predicates:
+            - Path=/admin/**
+          filters:
+            - RewritePath=/admin/(?<path>.*), /$\{path}
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/product/**
+          filters:
+            - RewritePath=/product/(?<path>.*), /$\{path}
+
+logging.level.com.netflix: DEBUG
+
+management:
+  security:
+    enabled: false
 #    loadbalancer:
 #      ribbon:
 #        enabled: false
