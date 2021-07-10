@@ -61,10 +61,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -171,5 +168,47 @@ public class AuthorizationController {
     public ResponseEntity<Object> logout(HttpServletRequest request) {
         onlineUserService.logout(tokenProvider.getToken(request));
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("获取短信s验证码")
+    @AnonymousPostMapping(value = "/getAccessToken")
+    public ResponseEntity<Object> getAccessToken(@RequestParam(required = true) String mobile) {
+        // 获取运算的结果
+//        Captcha captcha = loginProperties.getCaptcha();
+        String uuid = properties.getCodeKey() + IdUtil.simpleUUID();
+        //当验证码类型为 arithmetic时且长度 >= 2 时，captcha.text()的结果有几率为浮点型
+//        String captchaValue = captcha.text();
+//        if (captcha.getCharType() - 1 == LoginCodeEnum.arithmetic.ordinal() && captchaValue.contains(".")) {
+//            captchaValue = captchaValue.split("\\.")[0];
+//        }
+        // 保存
+        redisUtils.set(uuid, mobile, 2, TimeUnit.MINUTES);
+        // 验证码信息
+        Map<String, Object> imgResult = new HashMap<String, Object>(2) {{
+//            put("img", captcha.toBase64());
+            put("uuid", uuid);
+        }};
+        return ResponseEntity.ok(imgResult);
+    }
+
+    @ApiOperation("获取短信s验证码")
+    @AnonymousPostMapping(value = "/sendSms")
+    public ResponseEntity<Object> sendSms(@RequestParam(required = true) String key) {
+        // 获取运算的结果
+//        Captcha captcha = loginProperties.getCaptcha();
+        String uuid = properties.getCodeKey() + IdUtil.simpleUUID();
+
+        // 保存
+        String mobile = (String)redisUtils.get(key);
+        log.info("mobile----"+mobile);
+        if(mobile==null){
+            throw new BadRequestException("验证码已失效，请重新发送");
+        }
+        // 验证码信息
+        Map<String, Object> imgResult = new HashMap<String, Object>(2) {{
+            put("smsCode",IdUtil.simpleUUID());
+            put("mobile", mobile);
+        }};
+        return ResponseEntity.ok(imgResult);
     }
 }
