@@ -18,13 +18,13 @@ public class ConfigController {
     @Autowired
     private MySQLProperties mySQLProperties;
 
-    @Value("${name}")
-    private String name;
-
-    @GetMapping("/name")
-    public String getName() {
-        return name;
-    }
+//    @Value("${name}")
+//    private String name;
+//
+//    @GetMapping("/name")
+//    public String getName() {
+//        return name;
+//    }
 
     @GetMapping("/mysql")
     public MySQLProperties getMySQLProperties() {

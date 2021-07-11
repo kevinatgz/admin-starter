@@ -28,10 +28,7 @@ import com.starter.common.annotation.rest.AnonymousGetMapping;
 import com.starter.common.annotation.rest.AnonymousPostMapping;
 import com.starter.common.config.RsaProperties;
 import com.starter.common.exception.BadRequestException;
-import com.starter.common.utils.RedisUtils;
-import com.starter.common.utils.RsaUtils;
-import com.starter.common.utils.SecurityUtils;
-import com.starter.common.utils.StringUtils;
+import com.starter.common.utils.*;
 import com.wf.captcha.base.Captcha;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -172,9 +169,14 @@ public class AuthorizationController {
 
     @ApiOperation("获取短信s验证码")
     @AnonymousPostMapping(value = "/getAccessToken")
-    public ResponseEntity<Object> getAccessToken(@RequestParam(required = true) String mobile) {
+    public ResponseEntity<Object> getAccessToken(@RequestParam(required = true) String mobile,@RequestParam String rand,@RequestParam String signature) throws Exception {
         // 获取运算的结果
 //        Captcha captcha = loginProperties.getCaptcha();
+//        RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, mobile+rand);
+        String encStr = RSAEncryptDecrypt.encryptByPublicKey(RsaProperties.publicKey,mobile+rand);
+        log.info("encStr==="+encStr);
+        String decodeStr = RSAEncryptDecrypt.decryptByPrivateKey(RsaProperties.privateKey2,encStr);
+        log.info("decodeStr==="+decodeStr);
         String uuid = properties.getCodeKey() + IdUtil.simpleUUID();
         //当验证码类型为 arithmetic时且长度 >= 2 时，captcha.text()的结果有几率为浮点型
 //        String captchaValue = captcha.text();

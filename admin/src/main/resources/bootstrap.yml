@@ -5,8 +5,8 @@ spring:
     name: admin
   cloud:
     consul:
-      host: 192.168.128.21
-      port: 8503
+      host: localhost
+      port: 8500
       # 配置中心相关配置
       config:
         # 是否启用配置中心，默认值 true 开启
@@ -31,6 +31,7 @@ spring:
           delay: 1000
       discovery:
         instance-id: "n${spring.cloud.client.hostname}:${spring.application.name}:8008"
+#        hostname: localhost
 
 logging:
   level:
